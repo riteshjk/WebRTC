@@ -13,8 +13,8 @@ const Home = () => {
   };
 
   const navigate = useNavigate()
-  const handleCLick = () =>{
-    navigate("/register")
+  const handleClick = () =>{
+    navigate("/authenticate")
   }
 
   return (
@@ -26,13 +26,10 @@ const Home = () => {
           sure nothing breaks
         </p>
         <div>
-          <Button onClick={handleCLick} text="Get your username" />
+          <Button onClick={handleClick} text="Lets Go" />
         </div>
         <div className={styles.signinWrapper}>
           <span className={styles.hasInvite}>Have an invite text?</span>
-          <Link style={signInLinkStyle} to="/login">
-            Sign in
-          </Link>
         </div>
       </Card>
     </div>
