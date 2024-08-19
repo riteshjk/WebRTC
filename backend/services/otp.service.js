@@ -1,4 +1,5 @@
 const crypto = require('crypto')
+const hashService = require('./hash.service')
 
 const smsSid = process.env.TWILIO_ACCOUNT_SID
 const smsAuthToken = process.env.TWILIO_AUTH_TOKEN
@@ -19,8 +20,15 @@ class otpService{
         })
     }
 
-    verifyOtp(){
+    verifyOtp(hashedOtp, data){
+        const isValidHash = hashService.hashOtp(data);
 
+        if(hashedOtp == isValidHash ){
+            return true
+        }
+        else{
+            return false
+        }
     }
 }
 
