@@ -1,0 +1,13 @@
+
+.cardWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6rem;
+}
+.paragraph {
+    width: 70%;
+    text-align: center;
+    justify-content: center;
+    margin: 20px auto;
+}

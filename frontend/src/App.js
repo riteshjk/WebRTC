@@ -5,9 +5,15 @@ import Navigation from "./components/shared/Navigation/Navigation";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Activate from "./pages/Activate/Activate";
 import Room from "./pages/Room/Room";
+import { useSelector } from "react-redux";
+import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
+import Loader from "./components/shared/Loader/Loader";
+
 
 function App() {
-  return (
+   
+  const {loading} = useLoadingWithRefresh()
+  return loading ? (<Loader message="Please wait"/>) : (
     <div>
       <BrowserRouter>
         <Navigation />
@@ -22,10 +28,10 @@ function App() {
   );
 }
 
+
 const GuestRoute = ({ children }) => {
   // const { isAuth } = useSelector((state) => state.auth);
-  const isAuth = false;
-
+const {isAuth} = useSelector((state) => state.auth);
   if (isAuth) {
     return <Navigate to="/rooms" />;
   }
@@ -35,18 +41,14 @@ const GuestRoute = ({ children }) => {
 
 const SemiProtectedRoute = ({ children }) => {
   // const { user, isAuth } = useSelector((state) => state.auth);
+  const {isAuth,user} = useSelector((state) => state.auth);
 
-  const isAuth = false;
-
-  const user = {
-    isActivated: false,
-  }
 
   if (!isAuth) {
     return <Navigate to="/authenticate" />;
   }
 
-  if (isAuth && user.isActivated) {
+  if (isAuth && user.activated) {
     return <Navigate to="/rooms" />;
   }
 
@@ -55,15 +57,13 @@ const SemiProtectedRoute = ({ children }) => {
 
 const ProtectedRoute = ({ children }) => {
   // const { isAuth } = useSelector((state) => state.auth);
-  const isAuth = false;
-  const user = {
-    isActivated: false,
-  }
+  const {isAuth,user} = useSelector((state) => state.auth);
+
 
   if (!isAuth) {
     return <Navigate to="/" />;
   }
-  if(isAuth && !user.isActivated){
+  if(isAuth && !user.activated){
     return <Navigate to="/activate" />
   }
 
