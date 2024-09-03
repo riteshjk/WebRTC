@@ -7,6 +7,8 @@ import { setAvtar } from "../../../store/activeSlice";
 import { setAuth } from "../../../store/authSlice";
 import { activate } from "../../../http";
 import Loader from "../../../components/shared/Loader/Loader";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const StepAvatar = ({ onNext }) => {
   const dispatch = useDispatch();
@@ -25,12 +27,16 @@ const StepAvatar = ({ onNext }) => {
   }
 
   async function submit() {
-    if(!name || !avatar) return
+    if(!name || !avatar){
+      toast.error("Please enter all fields");
+      return
+    }
     setLoading(true)
     try {
       const { data } = await activate({ name, avatar });
       if (data.auth) {
         dispatch(setAuth(data));
+        toast.success("Account created successfully");
       }
       setLoading(false)
     } catch (err) {

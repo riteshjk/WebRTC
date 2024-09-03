@@ -5,6 +5,8 @@ import TextInput from "../../../components/shared/TextInput/TextInput";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./StepName.module.css";
 import { setName } from "../../../store/activeSlice";
+import toast, { Toaster } from 'react-hot-toast';
+
 const StepName = ({ onNext }) => {
   const { name } = useSelector((state) => state.active);
   const dispatch = useDispatch();
@@ -12,9 +14,10 @@ const StepName = ({ onNext }) => {
 
   function nextStep() {
     if (!fullname) {
-      return;
+      toast.error('Please enter your name');
     }
     dispatch(setName(fullname));
+    toast.success('Name saved successfully');
     onNext();
   }
   return (

@@ -4,10 +4,12 @@ import Home from "./pages/Home/Home";
 import Navigation from "./components/shared/Navigation/Navigation";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Activate from "./pages/Activate/Activate";
-import Room from "./pages/Room/Room";
+import Rooms from "./pages/Rooms/Rooms";
 import { useSelector } from "react-redux";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 import Loader from "./components/shared/Loader/Loader";
+import { Toaster } from "react-hot-toast";
+import Room from "./pages/Room/Room";
 
 
 function App() {
@@ -21,8 +23,10 @@ function App() {
           <Route path="/" element={<GuestRoute><Home /></GuestRoute>} />
           <Route path="/authenticate" element={<GuestRoute><Authenticate /></GuestRoute>} />
           <Route path="/activate" element={<SemiProtectedRoute><Activate /></SemiProtectedRoute>} />
-          <Route path="/rooms" element={<ProtectedRoute><Room /></ProtectedRoute>} />
+          <Route path="/rooms" element={<ProtectedRoute><Rooms /></ProtectedRoute>} />
+          <Route path="/room/:id" element={<ProtectedRoute><Room /></ProtectedRoute>} />
         </Routes>
+        <Toaster />
       </BrowserRouter>
     </div>
   );
